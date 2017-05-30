@@ -32,3 +32,8 @@ RUN mkdir warmup \
     && cd .. \
     && rm -rf warmup \
     && rm -rf /tmp/NuGetScratch
+
+# Update locales
+RUN apt-get install locales
+RUN locale-gen en_US.UTF-8
+RUN update-locale LANG=en_US.UTF-8
