@@ -15,6 +15,9 @@ RUN apt-get install -y dotnet-dev-1.0.4
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 RUN curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | tee /etc/apt/sources.list.d/msprod.list
 
+ENV DEBIAN_FRONTEND=noninteractive
+ENV ACCEPT_EULA=Y
+
 RUN apt-get update
 RUN apt-get install -y mssql-tools unixodbc-dev
 
