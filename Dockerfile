@@ -21,4 +21,14 @@ ENV ACCEPT_EULA=Y
 RUN apt-get update
 RUN apt-get install -y mssql-tools unixodbc-dev
 
-RUN echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
+RUN ln -sfn /opt/mssql-tools/bin/sqlcmd /usr/bin/sqlcmd
+RUN ln -sfn /opt/mssql-tools/bin/bcp /usr/bin/bcp
+
+# Trigger the population of the local package cache
+ENV NUGET_XMLDOC_MODE skip
+RUN mkdir warmup \
+    && cd warmup \
+    && dotnet new \
+    && cd .. \
+    && rm -rf warmup \
+    && rm -rf /tmp/NuGetScratch
